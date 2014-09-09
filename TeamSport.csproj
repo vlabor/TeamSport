@@ -41,6 +41,12 @@
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\packages\WebGrease.1.1.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Mvc">
       <HintPath>..\packages\Mvc4Futures.4.0.20710.0\lib\net40\Microsoft.Web.Mvc.dll</HintPath>
@@ -130,6 +136,7 @@
     <Compile Include="Controllers\BootstrapBaseController.cs" />
     <Compile Include="Controllers\ExampleLayoutsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ParticipantController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -163,6 +170,11 @@
     <Content Include="Views\ExampleLayouts\Narrow.cshtml" />
     <Content Include="Views\ExampleLayouts\Marketing.cshtml" />
     <Content Include="Views\ExampleLayouts\Fluid.cshtml" />
+    <Content Include="Views\Participant\Create.cshtml" />
+    <Content Include="Views\Participant\Delete.cshtml" />
+    <Content Include="Views\Participant\Details.cshtml" />
+    <Content Include="Views\Participant\Edit.cshtml" />
+    <Content Include="Views\Participant\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
