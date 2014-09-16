@@ -15,9 +15,10 @@ namespace TeamSport.Models
         [Required]
         public string Name { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime BirthDate { get; set; }
 
-        public GenderEnum Gender { get; set; }
+        public Gender Gender { get; set; }
     }
 
     public class ParticipantDbContext :  DbContext 
