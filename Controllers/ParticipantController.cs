@@ -12,7 +12,7 @@ namespace TeamSport.Controllers
 {
     public class ParticipantController : Controller
     {
-        private ParticipantDbContext db = new ParticipantDbContext();
+        private TeamSportDbContext db = new TeamSportDbContext();
 
         // GET: /Participant/
         public ActionResult Index()
@@ -70,7 +70,7 @@ namespace TeamSport.Controllers
             {
                 return HttpNotFound();
             }
-            return View(participant);
+            return View("Create", participant);
         }
 
         // POST: /Participant/Edit/5
