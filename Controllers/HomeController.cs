@@ -70,12 +70,16 @@ namespace BootstrapMvcSample.Controllers
             var model = _models.Get(id);
             return View(model);
         }
-
-
+        
         internal ActionResult Admin()
         {
             // used for demonstrationg route filters
             throw new NotImplementedException();
+        }
+
+        public ActionResult Default()
+        {
+            return View();
         }
     }
 }
