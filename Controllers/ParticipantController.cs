@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TeamSport.Models;
+using TeamSport.ViewModels;
 
 namespace TeamSport.Controllers
 {
@@ -17,7 +18,11 @@ namespace TeamSport.Controllers
         // GET: /Participant/
         public ActionResult Index()
         {
-            return View(db.Participants.ToList());
+            ParticipantIndexViewModel pivmdl = new ParticipantIndexViewModel();
+            pivmdl.Participants = db.Participants.Include(n => n.Gender).ToList();
+
+            //return View(db.Participants.ToList());
+            return View(pivmdl);
         }
 
         // GET: /Participant/Details/5
@@ -65,12 +70,12 @@ namespace TeamSport.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Participant participant = db.Participants.Find(id);
+            Participant participant = db.Participants.Include(n => n.Gender).First (n => n.Id == id);
             if (participant == null)
             {
                 return HttpNotFound();
             }
-            return View("Create", participant);
+            return View("Edit", participant);
         }
 
         // POST: /Participant/Edit/5

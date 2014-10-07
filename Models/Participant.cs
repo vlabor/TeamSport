@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.Entity;
 
@@ -14,6 +15,8 @@ namespace TeamSport.Models
         public string Name { get; set; }
 
         [DataType(DataType.Date)]
+        [DisplayName("Birth Date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime BirthDate { get; set; }
 
         public Gender Gender { get; set; }
@@ -23,5 +26,9 @@ namespace TeamSport.Models
     {
 
         public System.Data.Entity.DbSet<TeamSport.Models.Participant> Participants { get; set; }
+
+        public System.Data.Entity.DbSet<TeamSport.Models.Gender> Gender { get; set; }
+
+
     }
 }

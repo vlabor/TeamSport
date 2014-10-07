@@ -34,10 +34,9 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Gender, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Gender.GenderName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Gender)
-                @Html.ValidationMessageFor(model => model.Gender)
+                @Html.DropDownListFor(model => model.Gender.Id, new SelectList(TeamSport.Models.Gender.GetItems(), "ID", "GenderName"), "Choose ...")                
             </div>
         </div>
 
@@ -53,6 +52,6 @@
     @Html.ActionLink("Back to List", "Index")
 </div>
 
-<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

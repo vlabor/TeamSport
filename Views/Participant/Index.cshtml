@@ -1,0 +1,58 @@
+﻿@using BootstrapSupport
+
+@model TeamSport.ViewModels.ParticipantIndexViewModel
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h4>@Model.GetLabel() <small>Listing</small></h4>
+
+<table class="table table-striped">
+    <caption></caption>
+    <thead>
+        <tr>
+            @foreach (var property in Model.ParticipantsList.VisibleProperties())
+            {
+                <th>
+                    @property.GetLabel().ToSeparatedWords()
+                </th>
+            }
+            <th></th>
+        </tr>
+    </thead>
+    @{ int index = 0; }
+    @foreach (var participant in Model.ParticipantsList)
+    {
+        ViewData[index.ToString()] = participant;
+        <tr>           
+            <td>@Html.Raw(participant.Name)</td>
+            <td>@Html.Raw(participant.BirthDate.ToString("d"))</td>
+            <td>@Html.Raw(participant.Gender)</td>
+            <td></td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                        Action
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        @{
+                            @Html.TryPartial("_actions", participant)
+        var routevalues = participant.Id;
+        <li>@Html.ActionLink("Edit", "Edit", routevalues)</li>
+                            <li>@Html.ActionLink("Details", "Details", routevalues)</li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Delete", "Delete", routevalues)</li>
+
+                        }
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        index++;
+    }
+</table>
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn" })
+</p>
