@@ -1,4 +1,4 @@
-﻿@model TeamSport.Models.Participant
+﻿@model TeamSport.ViewModels.ParticipantEditViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -15,28 +15,28 @@
         <h4>Participant</h4>
         <hr />
         @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.CurrentParticipant.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CurrentParticipant.Name, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Name)
-                @Html.ValidationMessageFor(model => model.Name)
+                @Html.EditorFor(model => model.CurrentParticipant.Name)
+                @Html.ValidationMessageFor(model => model.CurrentParticipant.Name)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.BirthDate, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CurrentParticipant.BirthDate, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.BirthDate)
-                @Html.ValidationMessageFor(model => model.BirthDate)
+                @Html.EditorFor(model => model.CurrentParticipant.BirthDate)
+                @Html.ValidationMessageFor(model => model.CurrentParticipant.BirthDate)
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Gender.GenderName, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CurrentParticipant.Gender.GenderName, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.Gender.Id, new SelectList(TeamSport.Models.Gender.GetItems(), "ID", "GenderName"), "Choose ...")                
+                @Html.DropDownListFor(model => model.SelectedGenderId, Model.Genders, "Choose ...")                
             </div>
         </div>
 

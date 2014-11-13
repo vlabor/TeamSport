@@ -25,7 +25,7 @@
     @foreach (var participant in Model.ParticipantsList)
     {
         ViewData[index.ToString()] = participant;
-        <tr>           
+        <tr>
             <td>@Html.Raw(participant.Name)</td>
             <td>@Html.Raw(participant.BirthDate.ToString("d"))</td>
             <td>@Html.Raw(participant.Gender)</td>
@@ -38,9 +38,9 @@
                     </a>
                     <ul class="dropdown-menu">
                         @{
-                            @Html.TryPartial("_actions", participant)
-        var routevalues = participant.Id;
-        <li>@Html.ActionLink("Edit", "Edit", routevalues)</li>
+                            @Html.TryPartial("_actions", Model)
+                            var routevalues = new {id = participant.Id};
+                            <li>@Html.ActionLink("Edit", "Edit", routevalues )</li>
                             <li>@Html.ActionLink("Details", "Details", routevalues)</li>
                             <li class="divider"></li>
                             <li>@Html.ActionLink("Delete", "Delete", routevalues)</li>

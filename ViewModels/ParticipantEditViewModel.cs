@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using TeamSport.Models;
 
 namespace TeamSport.ViewModels
@@ -10,6 +11,8 @@ namespace TeamSport.ViewModels
     {
         public Participant CurrentParticipant { get; set; }
 
-        public int SelectedGenderId { get; set; }
+        public long SelectedGenderId { get; set; }
+
+        public IEnumerable<SelectListItem> Genders { get; set; }    
     }
 }

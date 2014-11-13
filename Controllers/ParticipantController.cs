@@ -70,12 +70,18 @@ namespace TeamSport.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Participant participant = db.Participants.Include(n => n.Gender).First (n => n.Id == id);
-            if (participant == null)
+
+            var participant = db.Participants.Include(n => n.Gender).First(n => n.Id == id);
+
+            var model = new ParticipantEditViewModel()
             {
-                return HttpNotFound();
-            }
-            return View("Edit", participant);
+                CurrentParticipant = participant,
+                SelectedGenderId = participant.Gender.Id,
+                Genders = new SelectList(db.Gender.AsEnumerable() , "ID", "GenderName")
+            };
+
+           
+            return View("Edit", model);
         }
 
         // POST: /Participant/Edit/5
@@ -83,16 +89,22 @@ namespace TeamSport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="Id,Name,BirthDate,Gender")] Participant participant)
+        public ActionResult Edit(ParticipantEditViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var participant = db.Participants.First(n => n.Id == model.CurrentParticipant .Id );
+                participant.Gender = db.Gender.Find(model.SelectedGenderId );
+
                 db.Entry(participant).State = EntityState.Modified;
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
-            return View(participant);
+
+            return View(model);
         }
+
 
         // GET: /Participant/Delete/5
         public ActionResult Delete(int? id)
