@@ -11,6 +11,5 @@ namespace TeamSport.Models
         public long Id { get; set; }
         [DisplayName("Gender")]
         public string GenderName { get; set; }
-
     }
 }

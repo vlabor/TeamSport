@@ -32,7 +32,7 @@ namespace TeamSport.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Participant participant = db.Participants.Find(id);
+            Participant participant = db.Participants.Include(p => p.Gender).First(p => p.Id == id);
             if (participant == null)
             {
                 return HttpNotFound();
@@ -43,7 +43,15 @@ namespace TeamSport.Controllers
         // GET: /Participant/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new ParticipantEditViewModel()
+            {
+                CurrentParticipant = null,
+                SelectedGenderId = -1,
+                Genders = new SelectList(db.Gender.AsEnumerable(), "ID", "GenderName")
+            };
+            
+            return View("Create", model);
+
         }
 
         // POST: /Participant/Create
@@ -51,16 +59,22 @@ namespace TeamSport.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="Id,Name,BirthDate,Gender")] Participant participant)
+        public ActionResult Create(ParticipantEditViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var participant = new Participant();
+                participant.Gender = db.Gender.Find(model.SelectedGenderId);
+                participant.Name = model.CurrentParticipant.Name;
+                participant.BirthDate = model.CurrentParticipant.BirthDate;
+
                 db.Participants.Add(participant);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
-            return View(participant);
+            return View(model);
         }
 
         // GET: /Participant/Edit/5
@@ -93,8 +107,10 @@ namespace TeamSport.Controllers
         {
             if (ModelState.IsValid)
             {
-                var participant = db.Participants.First(n => n.Id == model.CurrentParticipant .Id );
-                participant.Gender = db.Gender.Find(model.SelectedGenderId );
+                var participant = db.Participants.First(n => n.Id == model.CurrentParticipant.Id );
+                participant.Name = model.CurrentParticipant.Name;
+                participant.Gender = db.Gender.Find(model.SelectedGenderId);
+                participant.BirthDate = model.CurrentParticipant.BirthDate;
 
                 db.Entry(participant).State = EntityState.Modified;
                 db.SaveChanges();
