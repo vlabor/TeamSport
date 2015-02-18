@@ -85,12 +85,14 @@ namespace TeamSport.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var participant = db.Participants.Include(n => n.Gender).First(n => n.Id == id);
+            var participant = db.Participants.FirstOrDefault(n => n.Id == id);
+            if(participant == null)
+                RedirectToAction("Index");
 
             var model = new ParticipantEditViewModel()
             {
                 CurrentParticipant = participant,
-                SelectedGenderId = participant.Gender.Id,
+                SelectedGenderId = participant.Gender == null ? (long?)null : participant.Gender.Id,
                 Genders = new SelectList(db.Gender.AsEnumerable() , "ID", "GenderName")
             };
 
@@ -107,7 +109,7 @@ namespace TeamSport.Controllers
         {
             if (ModelState.IsValid)
             {
-                var participant = db.Participants.First(n => n.Id == model.CurrentParticipant.Id );
+                var participant = db.Participants.Include(n => n.Gender).First(n => n.Id == model.CurrentParticipant.Id );
                 participant.Name = model.CurrentParticipant.Name;
                 participant.Gender = db.Gender.Find(model.SelectedGenderId);
                 participant.BirthDate = model.CurrentParticipant.BirthDate;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Data.Entity;
 
 
@@ -8,7 +9,7 @@ namespace TeamSport.Models
 {
     public class Participant
     {
-
+        [Required]
         public int Id { get; set; }
 
         [Required]
@@ -24,6 +25,10 @@ namespace TeamSport.Models
 
     public class TeamSportDbContext :  DbContext 
     {
+        public TeamSportDbContext() : base()
+        {
+            Configuration.LazyLoadingEnabled = false;
+        }
 
         public System.Data.Entity.DbSet<TeamSport.Models.Participant> Participants { get; set; }
 

@@ -11,7 +11,7 @@ namespace TeamSport.ViewModels
     {
         public Participant CurrentParticipant { get; set; }
 
-        public long SelectedGenderId { get; set; }
+        public long? SelectedGenderId { get; set; }
 
         public IEnumerable<SelectListItem> Genders { get; set; }    
     }
